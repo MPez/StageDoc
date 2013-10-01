@@ -1,0 +1,56 @@
+Phone Gap: linee guida.
+
+-------------------------------------------MATERIALE------------------------------------------------------
+Link alla documentazione:
+http://docs.phonegap.com/en/2.7.0/index.html
+
+Libro Beginning PhoneGap:
+
+Guida per installare e configurare PhoneGap con Eclipse:
+http://simonmacdonald.blogspot.ca/2012/11/getting-create-command-to-work-on.html
+----------------------------------------------------------------------------------------------------------
+
+1) Introduzione al sistema di lavoro: è emersa la possibilità di utilizzare un build per automatizzare le operazioni di creazione dell'app sulle diverse piattaforme. L'alternativa consiste nello sviluppare specificatamente per ogni piattaforma... poco allettante... richiede il possesso di un mac con Xcode installato.
+
+link al builder: 
+https://build.phonegap.com/
+
+----------------------------------------------------------------------------------------------------------
+
+Intallazione ambiente di lavoro Eclipse + Android + PhoneGap + Sencha
+
+NOTE: è importante tener traccia dei percorsi di installazione al fine di settare correttamente le variabili d'ambiente.
+
+)installare JRF
+)installare JDK -> http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
+)installare IIS
+)installare Eclipse
+)installere Android-SDK -> http://developer.android.com/sdk/index.html
+)aprire SDK manager e installare l'ultima versione di Android + Tools
+)installare il plugin per eclipse Android ADT - pagina 22 Begin PhoneGap
+)configurare -> aggiungere la path della Android SDK - pag 23 Begin PhoneGap
+)scaricare PhoneGap SDK -> http://phonegap.com/download/
+)installare ANT -> http://ant.apache.org/
+)configurazione delle variabili d'ambiente come Simon comanda! -> http://simonmacdonald.blogspot.ca/2012/11/getting-create-command-to-work-on.html
+)aggiungere alla variabile d'ambiente PATH il percorso al comnado create
+)aprire ISS manager e aggiornare il catalogo MIME aggiungendo estensione JSON per application/json -> http://stackoverflow.com/questions/332988/get-iis6-to-serve-json-files-inc-post-get/1121114#1121114 (necessario per usare Sencha)
+)scaricare SenchaTouch 2
+)scaricare Sencha cmd -> http://www.sencha.com/products/sencha-cmd/download
+)sei pronto per partire!
+
+
+CREARE UN NUOVO PROGETTO
+)creare scheletro PhoneGap Android APP con il comando create <path> <nome package> <nome progetto> (da dentro la cartella PhoneGap/lib/android/bin
+)aprire un prompt dei comandi e spostarsi nella cartella contenente l'sdk di SenchaTouch. Creare una nuova web app con il comando Sencha cmd --> http://docs.sencha.com/touch/2.2.0/#!/guide/getting_started
+)spostare la web app cosi generata all'interno ddi inetpub/wwwroot.
+)avviare il manager di IIS e aggiungere la nuova applicazione (tasto destro -> aggiungi applicazione).
+)sviluppare la propria web app.
+)copiare dentro allo scheletro di PhoneGap la web app creata (tutto tranne index.html)
+)aggiorno l'index già esistente sovrascrivendo tutto con il contenuto del mio index.html ma lasciando il link allo script di Cordoba
+)avviare Eclips e creare un nuovo progetto a partire dallo scheletro già creato.
+)testare ed infine creare l'apk
+
+--------------------------------APPUNTI-----------------------------------
+TOUTORIAL VITALE!
+
+seguire guida http://miamicoder.com/2012/how-to-create-a-sencha-touch-2-app-part-1/

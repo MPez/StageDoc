@@ -1,0 +1,54 @@
+In questa sezione verranno forniti i risultati dello studio effettuato sulla gestione delle periferiche disponibili sui dispositivi mobili utilizzabili tramite le API fornite da Sencha Touch e da Apache Cordova.
+
+\subsection{Dispositivi utilizzati}
+\begin{itemize}
+\item Asus ME301T - Android 4.2.1
+\end{itemize}
+
+\subsection{Versioni framework utilizzate}
+\begin{itemize}
+\item Sencha Touch 2.2.1 / Sencha Cmd 3.1.2 / Apache Cordova 3.0.0
+\item Sencha Touch 2.3.0 / Sencha Cmd 4.0.0 / Apache Cordova 3.0.0
+\item Sencha Architect 2.2.2
+\end{itemize}
+
+
+\subsection{Funzionalità testate}
+Di seguito vengono descritte le diverse periferiche testate (i nomi si riferiscono ai nomi delle classi utilizzate nei framework o nei plugin esterni):
+\begin{itemize}
+\item \textbf{Barcode:} Permette di leggere un barcode tramite la fotocamera del dispositivo;
+\item \textbf{Camera:} Permette di catturare un'immagine tramite la fotocamera o la galleria del dispositivo;
+\item \textbf{Connection:} Permette di testare la connettività del dispositivo e di recuperarne la tipologia;
+\item \textbf{Contacts:} Permette di consultare e modificare la rubrica del dispositivo;
+\item \textbf{Device:} Permette di visualizzare le informazioni proprie del dispositivo;
+\item \textbf{File:} Permette di scrivere o leggere un file nella memoria del dispositivo;
+\item \textbf{Geolocation:} Permette di visualizzare la posizione corrente del dispositivo;
+\item \textbf{Media:} Permette di catturare o riprodurre file audio tramite il dispositivo;
+\end{itemize}
+
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+\multirow{2}*{Funzionalità} & \multicolumn{2}{c}{Sencha Touch} 	& \multirow{2}*{Apache Cordova} \\
+\cmidrule(rl) {2-3} 
+							& 2.2.1 & 2.3.0\ap{1}				& \\
+\midrule
+Barcode\ap{2}				& $\circ$ & $\circ$					& $\checkmark$ \\
+Camera						& $\checkmark$ & $\checkmark$		& $\checkmark$ \\
+Connection					& $\checkmark$ & $\checkmark$		& $\checkmark$ \\
+Contacts					& $\bullet$ & $\bullet$				& $\checkmark$ \\
+Device						& & 								& $\checkmark$ \\
+File						 	& $\circ$ & 	$\bullet$				& $\checkmark$ \\
+Geolocation\ap{3}			& $\checkmark$ & $\checkmark$ 		& $\checkmark$ \\
+Media						& $\circ$ & 	$\bullet$				& $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\ap{1} Il framework Sencha Touch 2.3.0 in associazione con il tool Sencha Cmd 4.0.0 sono in versione beta alla data di scrittura del documento; gli sviluppatori del framework hanno aggiunto in questa versione il supporto nativo per tutte le periferiche tipiche dei device mobili costruendo dei wrapper alle API di Cordova e richiamato in Sencha Cmd il tool di compilazione Cordova Command-line interface (CLI).\\
+Purtroppo non è stato possibile testare tali funzionalità in quanto si sono presentati errori sistematici durante la fase di compilazione dell'applicazione dovuti all'inefficacia del tool dedicato.
+
+\ap{2} BarcodeScanner è un plugin di Cordova sviluppato da \emph{Matt Kane}, la documentazione e i sorgenti sono consultabili al seguente indirizzo: \url{https://github.com/wildabeast/BarcodeScanner}.
+
+\ap{3} La geolocalizzazione implementata tramite Sencha Touch risulta funzionante solamente su browser. Mentre tramite Cordova si sono avute difficoltà con il funzionamento del GPS del dispositivo (probabilmente dovute ai test effettuati in luogo chiuso).
