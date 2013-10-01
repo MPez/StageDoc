@@ -1,0 +1,4 @@
+StageDoc
+========
+
+Documentazione stage
