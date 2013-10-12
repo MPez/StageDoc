@@ -8,8 +8,8 @@ In questa sezione verranno forniti i risultati dello studio effettuato sulla ges
 \subsection{Versioni framework utilizzate}
 \begin{itemize}
 \item Sencha Touch 2.2.1 / Sencha Cmd 3.1.2 / Apache Cordova 3.0.0
-\item Sencha Touch 2.3.0 / Sencha Cmd 4.0.0 / Apache Cordova 3.0.0
-\item Sencha Architect 2.2.2
+\item Sencha Touch 2.3.0 / Sencha Cmd 4.0.0 / Apache Cordova 3.1.0
+\item Sencha Architect 2.2.2 / Sencha Architect 2.2.3
 \end{itemize}
 
 
@@ -37,8 +37,8 @@ Di seguito vengono descritte le diverse periferiche testate (i nomi si riferisco
 Barcode\ap{2}				& $\circ$ & $\circ$					& $\checkmark$ \\
 Camera						& $\checkmark$ & $\checkmark$		& $\checkmark$ \\
 Connection					& $\checkmark$ & $\checkmark$		& $\checkmark$ \\
-Contacts					& $\bullet$ & $\bullet$				& $\checkmark$ \\
-Device						& & 								& $\checkmark$ \\
+Contacts					& $\bullet$ & $\checkmark$			& $\checkmark$ \\
+Device						& $\checkmark$ & $\checkmark$		& $\checkmark$ \\
 File						 	& $\circ$ & 	$\bullet$				& $\checkmark$ \\
 Geolocation\ap{3}			& $\checkmark$ & $\checkmark$ 		& $\checkmark$ \\
 Media						& $\circ$ & 	$\bullet$				& $\checkmark$ \\
@@ -46,9 +46,95 @@ Media						& $\circ$ & 	$\bullet$				& $\checkmark$ \\
 \end{tabular}
 \end{center}
 
-\ap{1} Il framework Sencha Touch 2.3.0 in associazione con il tool Sencha Cmd 4.0.0 sono in versione beta alla data di scrittura del documento; gli sviluppatori del framework hanno aggiunto in questa versione il supporto nativo per tutte le periferiche tipiche dei device mobili costruendo dei wrapper alle API di Cordova e richiamato in Sencha Cmd il tool di compilazione Cordova Command-line interface (CLI).\\
-Purtroppo non è stato possibile testare tali funzionalità in quanto si sono presentati errori sistematici durante la fase di compilazione dell'applicazione dovuti all'inefficacia del tool dedicato.
+\ap{1} Il framework Sencha Touch 2.3.0 in associazione con il tool Sencha Cmd 4.0.0 sono state rilasciate durante lo svolgimento dello stage; gli sviluppatori del framework hanno aggiunto in questa versione il supporto nativo per tutte le periferiche tipiche dei device mobili costruendo dei wrapper alle API di Cordova e richiamato in Sencha Cmd il tool di compilazione Cordova Command-line interface (CLI).
+
+Purtroppo non è stato possibile testare efficacemente tutte le funzionalità in quanto si sono presentati dei problemi a runtime probabilmente dovuti a bug presenti nelle API.
 
 \ap{2} BarcodeScanner è un plugin di Cordova sviluppato da \emph{Matt Kane}, la documentazione e i sorgenti sono consultabili al seguente indirizzo: \url{https://github.com/wildabeast/BarcodeScanner}.
 
 \ap{3} La geolocalizzazione implementata tramite Sencha Touch risulta funzionante solamente su browser. Mentre tramite Cordova si sono avute difficoltà con il funzionamento del GPS del dispositivo (probabilmente dovute ai test effettuati in luogo chiuso).
+
+\subsection{Processi di build}
+Per eseguire il processo di build dell'applicazione sono stati utilizzati diversi approcci, alcuni si sono rivelati funzionanti mentre con altri si sono incontrate notevoli difficoltà.
+
+\subsubsection{Sencha Cmd 3.1.2}
+Il tool fornito da Sencha fornisce diverse funzionalità allo sviluppatore:
+\begin{description}
+\item[\texttt{sencha generate app [appName] [/path/to/the/app]}:] creare la struttura di base dell'applicazione con le relative cartelle e file \texttt{index.html} e \texttt{app.js} (comando da eseguire dalla cartella dove risiede il framework);
+\item[\texttt{sencha generate [model,controller]}:] creare modelli e controller attraverso appropriati parametri di input;
+\item[\texttt{sencha app build [production,testing,native,package]}:] eseguire il processo di build producendo diverse forme di output a seconda delle necessità:
+	\begin{itemize}
+	\item Native: fornisce il file APK necessario per l'installazione su piattaforma Android;
+	\item Package: fornisce una build di produzione eseguibile dal file system senza l'uso di un web server;
+	\item Production: fornisce una build di produzione che per essere eseguita necessita di un web server;
+	\item Testing: fornisce una build in cui i file sorgente non sono minificati rendendo più semplice il debug.
+	\end{itemize}
+\end{description}
+
+Per eseguire correttamente il processo di generazione e di compilazione di un'applicazione si devono quindi eseguire i seguenti passi:
+\begin{enumerate}
+\item Generare la cartella con la relativa struttura tramite apposito comando;
+\item Scrivere il codice dell'applicazione rispettando l'architettura MVC del framework;
+\item Modificare il file di configurazione \texttt{packager.json} con i parametri desiderati;
+\item Eseguire la build dell'applicazione con l'output desiderato.
+\end{enumerate}
+
+Nel caso ci fosse la necessità di utilizzare le API di Cordova, non è possibile utilizzare il Sencha Cmd per la compilazione del progetto ma è necessario seguire la procedura descritta nel paragrafo \ref{sec:cordova}.
+
+\subsubsection{Sencha Cmd 4.0.0}
+Il nuovo tool fornito da Sencha in concomitanza con la versione 2.3 del framework Touch fornisce una nuova e utile funzionalità: l'integrazione di Apache Cordova e di PhoneGap.
+Sono stati introdotti nuovi comandi:
+\begin{description}
+\item[\texttt{sencha [cordova,phonegap] init [appID] [appName]}:] consente di generare all'interno della cartella di lavoro tutti i file necessari per il funzionamento di Cordova (PhoneGap);
+\item[\texttt{sencha app build native}:] consente di generare le build native per i diversi sistemi mobili sfruttando i tool propri di Cordova (PhoneGap);
+\end{description}
+
+La procedura per la generazione e la compilazione di un'applicazione è la medesima della versione precedente se non si utilizza Cordova (PhoneGap), in caso contrario si deve aggiungere un elemento:
+\begin{enumerate}
+\item Generare la cartella con la relativa struttura tramite apposito comando;
+\item Generare i file necessari al funzionamento di Cordova (PhoneGap);
+\item All'interno della cartella \texttt{cordova} appena generata eseguire i comandi per l'aggiunta dei plugin propri di Cordova
+\item Modificare il file \texttt{cordova.local.properties} impostando le piattaforme per le quali si desidera effettuare la build dell'applicazione;
+\item Scrivere il codice dell'applicazione rispettando l'architettura MVC del framework;
+\item Modificare il file di configurazione \texttt{config.xml} con i parametri desiderati;
+\item Eseguire la build dell'applicazione in modalità nativa (unica alternativa per sfruttare Cordova).
+\end{enumerate}
+
+\label{sec:cordova}
+\subsubsection{Apache Cordova CLI 3.0.0}
+Cordova dispone di un interfaccia a riga di comando che permette la creazione di progetti per lo sviluppo di applicazioni cross-platform e la seguente compilazione delle stesse.
+I comandi principali sono i seguenti:
+\begin{description}
+\item[\texttt{cordova create [appDirectory] [appID] [appName]}:] consente di generare la struttura di cartelle necessarie allo sviluppo dell'applicazione e il file \texttt{index.html};
+\item[\texttt{corova platform add [ios,android, ...]}:] consente di aggiungere le piattaforme per le quali si intende sviluppare l'applicazione;
+\item[\texttt{cordova build [ios,android, ...]}:] consente di effettuare la compilazione per la piattaforma indicata oppure, se omessa, per ogni piattaforma aggiunta al progetto. Tale comando è una concatenazione di due comandi distinti:
+	\begin{description}
+	\item[\texttt{cordova prepare}:] effettua la copia dei file dell'applicazione per ogni piattaforma aggiunta al progetto;
+	\item[\texttt{cordova compile}:] effettua la compilazione del progetto producendo in output i file eseguibili specifici per ogni piattaforma.
+	\end{description}
+\end{description}
+
+Nonostante il CLI sia in grado di generare gli output per le diverse piattaforme (ogni piattaforma necessita del proprio SDK e di un sistema adeguato al suo funzionamento, es: per ottenere un'applicazione per iOS è necessario utilizzare hardware e sistema operativo Apple, nonché ottenere una licenza da sviluppatore), è possibile omettere il comando di compilazione per sfruttare strumenti diversi (per Android si può utilizzare Eclipse, creando un progetto dedicato e importando l'applicazione che usa Cordova).
+
+Per eseguire correttamente il processo di generazione e di compilazione di un'applicazione si devono quindi eseguire i seguenti passi:
+\begin{enumerate}
+\item Generare la cartella con la relativa struttura tramite apposito comando;
+\item Aggiungere le piattaforme desiderate;
+\item Scrivere il codice dell'applicazione utilizzando un framework adeguato (es: Sencha Touch 2) integrando le API di Cordova desiderate;
+\item Modificare il file di configurazione \texttt{config.xml} con i parametri desiderati;
+\item Eseguire la build dell'applicazione.
+\end{enumerate}
+
+\subsubsection{PhoneGap CLI 3.0.0}
+PhoneGap è un framework derivato da Apache Cordova che sfrutta in toto le sue potenzialità e alle quali aggiunge la possibilità di effettuare le build per qualsiasi piattaforma senza la necessità di aver installato i relativi SDK; ciò è possibile attraverso una compilazione remota del progetto, richiamabile direttamente dal CLI oppure effettuando l'accesso al sito web Adobe PhoneGap Build\footnote{\url{https://build.phonegap.com/}} che fornisce un servizio cloud mediante sottoscrizione.
+
+I comandi da utilizzare per effetuare la compilazione remota sono i seguenti:
+\begin{description}
+\item[\texttt{phonegap remote login -u [username] -p [password]}:] consente di effettuare il login al servizio cloud dopo l'opportuna registrazione;
+\item[\texttt{phonegap remote logout}:] consente di effettuare il logout dal serivizio cloud;
+\item[\texttt{phonegap remote build [ios, android, ...]}:] consente la compilazione remota per la piattaforma specificata.
+\end{description}
+
+La procedura di creazione del progetto e di compilazione dello stesso ricalca quella di Cordova tranne che per la fase finale di compilazione che richiede i comandi appena descritti nel caso si voglia sfruttare il servizio cloud.
+
+\subsubsection{Problemi riscontrati durante lo sviluppo}
