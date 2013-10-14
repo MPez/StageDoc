@@ -1,1 +1,59 @@
- 
+Attraverso il SyncManager è possibile utilizzare tutte le funzionalità del SyncEngine tramite una facile interfaccia, la quale consente al programmatore di sfruttare la creazione dinamica ed automatica degli store e il salvataggio dei dati sul server attraverso dei metodi propri di tale gestore.
+
+Il SyncEngine è stato progettato e realizzato come pacchetto indipendente ed utilizzabile in ogni applicazione che necessita di salvataggio online di dati presenti nella memoria del dispositivo mobile dove tale applicazione viene utilizzata.
+Per poter utilizzare tale pacchetto in un qualsiasi progetto progetto sono possibili 2 diverse strade che utilizzano strumenti diversi.
+
+\paragraph*{Cmd 3.1.2}
+I framework Sencha (Touch e Ext JS) consentono di creare un \textit{workspace} unico nel quale creare e sviluppare i progetti mobili e desktop; tale workspace contiene:
+	\begin{itemize}
+	\item le versioni dei framework installati nel sistema;
+	\item i progetti creati;
+	\item i \textit{package} creati dall'utente o dalla comunità che possono essere utilizzati come librerie esterne in qualsiasi progetto;
+	\end{itemize}
+Appare chiaro come il SyncEngine si presti ad essere considerato un package all'interno del workspace Sencha; affinché ciò sia possibile è necessario compilare tale libreria tramite il Sencha Cmd in modo che lo stesso lo riconosca e lo renda utilizzabile nei diversi contesti in cui si deciderà di usarlo.
+
+Per creare un workspace ed un package seguire la procedura:
+\begin{enumerate}
+\item \texttt{sencha -sdk /path/to/sdk generate workspace /path/to/workspace}: tale comando consente di generare un workspace nel percorso specificato utilizzando il framework desiderato;
+\item \texttt{sencha -sdk [touch,ext] generate package -type code packageName}: tale comando consente di generare il package \textit{packageName} il cui tipo indica che si tratta di una libreria di codice (le alternative sono \textit{theme}, che identifica un tema grafico, e \textit{locale} che identifica una lingua per uso specifico) che utilizza il framework specificato;
+\item \texttt{sencha package build}: dopo aver scritto il codice del pacchetto all'interno della cartella \texttt{src} ed aver modificato il file di configurazione \texttt{package.json}, lanciare tale comando per eseguire la build del package.
+\end{enumerate}
+
+In questo modo il pacchetto viene reso disponibile all'interno dello spazio di lavoro a patto di essere richiesto nel file di configurazione, \texttt{app.json}, del progetto che lo deve utilizzare.
+
+\lstset{language=Java}
+\begin{lstlisting}[caption={Inclusione di un pacchetto in un'applicazione - Sencha Touch 2}]
+{
+    "name": "MyApp",
+    "requires": [
+        "packageName"
+    ]
+}
+\end{lstlisting}
+
+\paragraph*{Apache Cordova}
+Con Cordova è molto più semplice usare delle librerie esterne, o comunque dei file di supporto al codice di un'applicazione, in quanto esso è stato creato per essere utilizzato in concomitanza con qualsiasi codice Javascript e non per uno specifico framework.
+
+Per utilizzare un pacchetto esterno è infatti sufficiente inserire la cartella contente i file richiesti all'interno della cartella del progetto e utilizzarli come previsto dal framework usato per lo sviluppo.
+Nel caso si Sencha Touch 2 e del SyncEngine è sufficiente utilizzare il nome completo di ogni classe nel dichiarazione apposita nel file \texttt{app.js}:
+
+\begin{lstlisting}[caption={Inclusione di un pacchetto in un'applicazione - Apache Cordova}]
+Ext.Loader.setPath({
+    'Ext': 'touch/src',
+    'org': 'org'
+});
+
+Ext.application({
+    requires: [
+        'org.s2.syncEngine.SyncManager'
+    ],
+    ...
+});
+\end{lstlisting}
+
+\paragraph*{Soluzione utilizzata}
+Nel caso del SyncEngine è stato possibile utilizzare Sencha Cmd per costruire il pacchetto attraverso dei workaround\footnote{\url{http://www.sencha.com/forum/showthread.php?261175-Add-third-party-libraries},\\\url{http://tinyurl.com/lkwaj6o}} presenti in alcuni forum in quanto, seguendo i manuali Sencha, non era possibile giungere al completamento dell'operazione.
+Una volta creato il pacchetto è stato però impossibile utilizzarlo in un'applicazione in quanto Sencha Cmd non ha mai completato con successo un processo di build: in seguito a questo fatto è stato aperto un thread nel forum Sencha\footnote{\url{http://tinyurl.com/lgnme4w}} attraverso il  quale, inizialmente, è stata ricevuta, ma dopo alcuni post la conversazione ha avuto termine senza giungere ad una soluzione.
+
+Si è deciso, quindi, di proseguire con il secondo metodo, utilizzando cioè Cordova per effettuare la build del progetto.
+Con tale metodo non è stato riscontrato alcun problema riguardo all'integrazione del SyncEngine.

@@ -140,12 +140,40 @@ La procedura di creazione del progetto e di compilazione dello stesso ricalca qu
 \subsection{Applicazioni sviluppate}
 Durante lo svolgimento dello stage sono state sviluppate 3 applicazioni distinte per testare i diversi sistemi di creazione e compilazione forniti dai framework adottati.
 \begin{itemize}
+\item \textbf{MyNotes:} applicazione che implementa un semplice blocco note con gestione degli autori con upload e download dei dati tramite server;
 \item \textbf{SensorDevice:} applicazione che utilizza esclusivamente Sencha Touch 2.2.1 e Sencha Cmd 3.1.2 e che sfrutta con successo la fotocamera e il GPS del dispositivo, recupera le informazioni proprie del dispositivo e identifica il tipo di connessione alla rete in atto;
-\item \textbf{SensorDeviceCordova:} applicazione che utilizza Sencha Touch 2.2.1 per la parte grafica e Apache Cordova 3.0.0 per lo sfruttamento delle periferiche del dispositivo mobile; tramite questa applicazione è possibile sfruttare tutte le periferiche disponibili;
+\item \textbf{SensorDeviceCordova:} applicazione che utilizza Sencha Touch 2.2.1 per la parte grafica e Apache Cordova 3.0.0 per lo sfruttamento delle periferiche del dispositivo mobile; tramite questa applicazione è possibile sfruttare tutte le periferiche disponibili ed in essa è stata integrata l'app MyNotes che utilizza il SyncEngine;
 \item \textbf{ArchitectApp:} applicazione sviluppata tramite Sencha Architect 2.2.3 e che utilizza Sencha Touch 2.3 e Apache Cordova 3.1.0; si è cercato di testare entrambi i framework per lo sfruttamento delle periferiche del device ottenendo risultati migliori rispetto alla versione 2.2.1 per quanto riguarda Sencha Touch e pressoché identici per quanto riguarda Cordova.
 \end{itemize}
 
+Tutte le applicazioni, tranne MyNotes, hanno seguito un processo di versionamento è sono disponibili presso la pagina GitHub dell'autore:
+\begin{itemize}
+\item SensorDevice: git@github.com:MPez/SensorDevice.git;
+\item SensorDeviceCordova: git@github.com:MPez/SensorDeviceCordova.git;
+\item ArchitectApp: git@github.com:MPez/ArchitectApp.git.
+\end{itemize}
 
 \subsection{Problemi riscontrati durante lo sviluppo}
+Oltre al problema di creazione ed utilizzo del package SyncEngine già discusso in precedenza, si sono riscontrate le seguenti difficoltà:
+\begin{itemize}
+\item Utilizzo framework Sencha Touch: il manuale risulta essere incompleto e poco preciso in molti punti, sono molto carenti gli esempi pratici e spesso la soluzioni dei problemi viene fornita dagli stessi utenti del framework e non dagli sviluppatori;
+\item Compilazione con Sencha Cmd: il tool di compilazione è risultato essere uno strumento utile ma che riserva sorprese inaspettate e malfunzionamenti ai quali non si riesce a trovare una soluzione;
+\item Integrazione Cordova in un progetto Sencha Touch: inizialmente è stato molto difficile integrare i 2 framework nello stesso progetto a causa della scarsa documentazione presente in rete (quella trovata fa riferimento a vecchie versioni non più in uso) e delle guide spesso discordanti fra loro;
+\item Apache Cordova Capture plugin: con l'uscita della versione 3.1.0 del framework il plugin Capture è stato aggiornato e dopo aver compilato correttamente l'applicazione, essa subisce arresti imprevisti al momento dell'acquisizione del media catturato\footnote{\url{http://tinyurl.com/kmn2e9a}}.
+\end{itemize}
 
+\subsubsection{Link utili}
+\paragraph*{Tutorial di crezione nuovo progetto}
+\begin{itemize}
+\item \url{http://miamicoder.com/2012/how-to-create-a-sencha-touch-2-app-part-1/}
+\item \url{http://www.sencha.com/learn/a-sencha-touch-mvc-application-with-phonegap/}
+\item \url{http://andidog.de/blog/2012/06/packaging-a-sencha-touch-2-application-with-phonegap-for-android/}
+\item \url{http://code.medula.cl/article_Picture-capture-and-uploader-app-with-ST2.html}
+\item \url{http://bgmemo.com/tutorial-sencha-touch-and-phonegap/}
+\end{itemize}
 
+\paragraph*{Ottimizzazione codice}
+\begin{itemize}
+\item \url{http://dionbeetson.blogspot.it/2012/10/sencha-touch-performance-tips-and-tricks.html}
+\item \url{http://www.sencha.com/blog/4-tricks-for-smaller-css-in-touch-22/}
+\end{itemize}
