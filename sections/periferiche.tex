@@ -30,21 +30,28 @@ Di seguito vengono descritte le diverse periferiche testate (i nomi si riferisco
 \begin{center}
 \begin{tabular}{cccc}
 \toprule
-\multirow{2}*{Funzionalità} & \multicolumn{2}{c}{Sencha Touch} 	& \multirow{2}*{Apache Cordova} \\
+\multirow{2}*{Funzionalità} & \multicolumn{2}{c}{Sencha Touch} 			& \multirow{2}*{Apache Cordova} \\
 \cmidrule(rl) {2-3} 
-							& 2.2.1 & 2.3.0\ap{1}				& \\
+							& 2.2.1 		& 2.3.0\ap{1}				& \\
 \midrule
-Barcode\ap{2}				& $\circ$ & $\circ$					& $\checkmark$ \\
-Camera						& $\checkmark$ & $\checkmark$		& $\checkmark$ \\
-Connection					& $\checkmark$ & $\checkmark$		& $\checkmark$ \\
-Contacts					& $\bullet$ & $\checkmark$			& $\checkmark$ \\
-Device						& $\checkmark$ & $\checkmark$		& $\checkmark$ \\
-File						 	& $\circ$ & 	$\bullet$				& $\checkmark$ \\
-Geolocation\ap{3}			& $\checkmark$ & $\checkmark$ 		& $\checkmark$ \\
-Media						& $\circ$ & 	$\bullet$				& $\checkmark$ \\
+Barcode\ap{2}				& $\circ$ 		& $\circ$					& $\checkmark$ \\
+Camera						& $\checkmark$ 	& $\checkmark$				& $\checkmark$ \\
+Connection					& $\checkmark$ 	& $\checkmark$				& $\checkmark$ \\
+Contacts					& $\bullet$ 	& $\checkmark$				& $\checkmark$ \\
+Device						& $\checkmark$ 	& $\checkmark$				& $\checkmark$ \\
+File						 	& $\circ$ 		& $\bullet$					& $\checkmark$ \\
+Geolocation\ap{3}			& $\checkmark$ 	& $\checkmark$ 				& $\checkmark$ \\
+Media						& $\circ$ 		& $\bullet$					& $\checkmark$ \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\paragraph*{Legenda}
+\begin{description}
+\item[$\circ$:] funzionalità non presente
+\item[$\bullet$:] funzionalità presente ma non funzionante
+\item[$\checkmark$:] funzionalità funzionante
+\end{description}
 
 \ap{1} Il framework Sencha Touch 2.3.0 in associazione con il tool Sencha Cmd 4.0.0 sono state rilasciate durante lo svolgimento dello stage; gli sviluppatori del framework hanno aggiunto in questa versione il supporto nativo per tutte le periferiche tipiche dei device mobili costruendo dei wrapper alle API di Cordova e richiamato in Sencha Cmd il tool di compilazione Cordova Command-line interface (CLI).
 
